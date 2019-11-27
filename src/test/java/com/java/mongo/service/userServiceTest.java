@@ -54,6 +54,23 @@ public class userServiceTest extends MongoApplicationTests {
         }
     }
 
+
+    @Test
+    public void saveTest() throws Exception{
+        String user = "{\n" +
+                "\t\"name\" : \"Sajith\",\n" +
+                "\t\"age\" : \"27\",\n" +
+                "\t\"gender\": \"Male\",\n" +
+                "\t\"country\" : \"Srilanka\"\n" +
+                "}";
+
+        Users users= new ObjectMapper().readValue(user, Users.class);
+        userService.save(users);
+
+        Assert.assertEquals(3, userService.search().size());
+
+    }
+
     @Test
     public void searchTest() {
         List<Users> users = userService.search();
@@ -61,5 +78,6 @@ public class userServiceTest extends MongoApplicationTests {
         Assert.assertTrue("Bhanuka".equals(users.get(0).getName()));
 
     }
+
 
 }
